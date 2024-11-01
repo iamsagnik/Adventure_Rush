@@ -64,8 +64,8 @@ public class Map extends TileManager{
       // DRAW PLAYER
       double scale = (double)(gp.tileSize * gp.maxWorldCol)/width;
       int playerX = (int) (x + gp.player.worldX / scale);
-      int playerY = (int) (x + gp.player.worldY / scale);
-      int playerSize = (int) (gp.tileSize/ 5);
+      int playerY = (int) (y + gp.player.worldY / scale);
+      int playerSize = (int) (gp.tileSize/3);
       g2.drawImage(gp.player.stance, playerX , playerY, playerSize, playerSize, null);
       g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }

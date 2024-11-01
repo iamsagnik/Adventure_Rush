@@ -204,6 +204,7 @@ public class GamePanel extends JPanel implements Runnable{
             tileM.draw(g2);  // Draw tiles based on camera
 
             map.drawMiniMapScreen(g2);
+            
             for(int i= 0 ; i < object.length;i++){
               if(object[i] != null){
                 object[i].draw(g2, this);

@@ -50,7 +50,7 @@ public class TileManager {
     setUp(10, "grass01", false);
     setUp(11, "grass02", false);
     setUp(12, "wall01", true);
-    setUp(13, "water_up01", true);
+    setUp(13, "water", true);
     setUp(14, "water_up02", true);
     setUp(15, "water_up03", true);
     setUp(16, "wall01", true);
