@@ -4,9 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
 
 import src.main.GamePanel;
 import src.main.KeyHandler;
+import src.main.UtilityTool;
 
 public class Player extends Entity{
 
@@ -40,19 +42,40 @@ public class Player extends Entity{
 
     speed = 3;
     direction = "null";
+
+    // PLAYER STATUS
+    maxLife = 100;
+    life = maxLife;
   }
 
   public void getPlayerImage() {
 
-    stance = setUp("/res/characters/player/mp_stance");
-    up1 = setUp("/res/characters/player/mp_up1_walk");
-    up2 = setUp("/res/characters/player/mp_up2_walk");
-    down1 = setUp("/res/characters/player/mp_down1_walk");
-    down2 = setUp("/res/characters/player/mp_down2_walk");    
-    left1 = setUp("/res/characters/player/mp_left1_walk");
-    left2 = setUp("/res/characters/player/mp_left2_walk");
-    right1 = setUp("/res/characters/player/mp_right1_walk");
-    right2 = setUp("/res/characters/player/mp_right2_walk");
+    stance = setUp("mp_stance");
+    up1 = setUp("/mp_up1_walk");
+    up2 = setUp("mp_up2_walk");
+    down1 = setUp("mp_down1_walk");
+    down2 = setUp("mp_down2_walk");    
+    left1 = setUp("mp_left1_walk");
+    left2 = setUp("mp_left2_walk");
+    right1 = setUp("mp_right1_walk");
+    right2 = setUp("mp_right2_walk");
+  }
+
+  public BufferedImage setUp(String imageName){
+    
+    UtilityTool uTool = new UtilityTool();
+    BufferedImage image = null;
+
+    try {
+      
+      image = ImageIO.read(getClass().getResourceAsStream("/res/characters/player/"+imageName+".png"));
+      image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    
+    
+    return image;
   }
 
   public void update() {

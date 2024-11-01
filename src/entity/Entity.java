@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 import src.main.GamePanel;
 import src.main.ImageRenderer;
 
-
 public class Entity {
   
   GamePanel gp;
@@ -21,6 +20,10 @@ public class Entity {
   public int spriteNum = 1;
   public Rectangle solidArea = new Rectangle(0,0,48,48);
   public boolean collisionOn = false;
+
+  // CHARACTER STATUS
+  public int maxLife;
+  public int life;
 
   
   public Entity(GamePanel gp){

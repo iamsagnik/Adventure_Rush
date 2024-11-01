@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import src.entity.Player;
+import src.object.SuperObject;
 import src.tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -41,12 +42,13 @@ public class GamePanel extends JPanel implements Runnable{
   Sound se = new Sound();
   public Camera camera = new Camera(this);
   public CollisionChecker cChecker = new CollisionChecker(this);
+  public AssetSetter aSetter = new AssetSetter(this);
   public UI ui = new UI(this); 
   Thread gameThread;
 
   // ENTITY AND OBJECT
   public Player player = new Player(this, keyH);
-
+  public SuperObject object[] = new SuperObject[20];
 
   //  GAME STATES
   public int gameState;
@@ -66,9 +68,10 @@ public class GamePanel extends JPanel implements Runnable{
     this.setFocusable(true);   // with this game panel can be focusable to recieve key inputs 
   }
 
-  public void setUPGame(){
+  public void setUpGame(){
 
     // playMusic(0);
+    aSetter.setObject();
     gameState = titleState;
   }
 
@@ -189,6 +192,14 @@ public class GamePanel extends JPanel implements Runnable{
           else{
 
             tileM.draw(g2);  // Draw tiles based on camera
+
+            for(int i= 0 ; i < object.length;i++){
+              if(object[i] != null){
+                object[i].draw(g2, this);
+              }
+
+            }
+
             player.draw(g2);  // Draw player based on camera
             ui.draw(g2);     // Draw ui  
           }

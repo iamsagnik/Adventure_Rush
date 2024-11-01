@@ -3,12 +3,17 @@ package src.main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import src.object.OBJ_Health;
+import src.object.SuperObject;
 
 public class UI {
 
   GamePanel gp;
   Graphics2D g2;
   Font aerial_40, aerial_80b;
+  BufferedImage health_100, health_75, health_50, health_25, health_00;
   public boolean messageOn = false;
   public String message = "";
   int messageCounter = 0;
@@ -20,6 +25,14 @@ public class UI {
     this.gp = gp;
     aerial_40 = new Font("Arial" , Font.PLAIN, 40);
     aerial_80b = new Font("Arial" , Font.BOLD, 80);
+
+    // CREATE HUD OBJECT
+    SuperObject health = new OBJ_Health(gp);
+    health_100 = health.image1;
+    health_75 = health.image2;
+    health_50 = health.image3;
+    health_25 = health.image4;
+    health_00 = health.image5;
   }
 
   public void showMessage(String text){
@@ -44,14 +57,45 @@ public class UI {
     // PLAY STATE
     if(gp.gameState == gp.playState){
 
-      // playState stuff later
+      drawPlayerLife();
     }
 
     // PAUSE STATE
     if(gp.gameState == gp.pauseState){
 
+      drawPlayerLife();
       drawPauseScreen();
     }
+
+    // DIALOGUE STATE
+    // if(gp.gameState == gp.pauseState){
+    // drawPlayerLife();
+    // drawDialogueScreen();
+    //}
+  }
+
+  public void drawPlayerLife(){
+
+    int x = (gp.screenWidth - gp.tileSize*5) / 2;
+    int y = gp.maxScreenRow/2;
+
+    BufferedImage healthImage;
+
+    // Select the appropriate health image based on player's health percentage
+    if (gp.player.life > 75) {
+        healthImage = health_100;
+    } else if (gp.player.life > 50) {
+        healthImage = health_75;
+    } else if (gp.player.life > 25) {
+        healthImage = health_50;
+    } else if (gp.player.life > 0) {
+        healthImage = health_25;
+    } else {
+        healthImage = health_00;
+    }
+
+    g2.drawImage(healthImage, x, y, null);
+
   }
 
   public void drawTitleScreen(){
