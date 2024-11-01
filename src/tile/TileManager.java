@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 
 import src.main.GamePanel;
-import src.main.ImageRenderer;
+import src.main.UtilityTool;
 
 public class TileManager {
   
@@ -62,7 +62,7 @@ public class TileManager {
 
   public void setUp(int index, String imageName , boolean collision){
 
-    ImageRenderer imgRend = new ImageRenderer();
+    UtilityTool uTool = new UtilityTool();
 
     try {
 
@@ -75,7 +75,7 @@ public class TileManager {
       }
       tile[index].image = ImageIO.read(imageStream);
 
-      tile[index].image = imgRend.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+      tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
       tile[index].collision = collision;
 
     } catch (IOException e) {
