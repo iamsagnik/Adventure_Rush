@@ -2,6 +2,7 @@ package src.main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 
 import src.entity.Player;
 import src.object.SuperObject;
+import src.tile.Map;
 import src.tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -28,7 +30,8 @@ public class GamePanel extends JPanel implements Runnable{
   public final int maxWorldRow = 90;
   public final int worldWidth = maxWorldCol * tileSize;
   public final int worldHeight = maxWorldRow * tileSize;
-
+  public final int maxMap = 10;
+  public int currentMap = 0;
 
   // FOR CHARACTER ANIMATION WE NEED TO INTRODUCE TIME IN OUR GAME
 
@@ -43,7 +46,8 @@ public class GamePanel extends JPanel implements Runnable{
   public Camera camera = new Camera(this);
   public CollisionChecker cChecker = new CollisionChecker(this);
   public AssetSetter aSetter = new AssetSetter(this);
-  public UI ui = new UI(this); 
+  public UI ui = new UI(this);
+  Map map = new Map(this); 
   Thread gameThread;
 
   // ENTITY AND OBJECT
@@ -55,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable{
   public final int titleState = 0;
   public final int playState = 1;
   public final int pauseState = 2;
-
+  public final int mapState = 10;
 
 
   
@@ -184,6 +188,12 @@ public class GamePanel extends JPanel implements Runnable{
           Graphics2D g2 = (Graphics2D) g;
 
 
+          // DEBUG
+          long drawStart = 0;
+          if(keyH.showDebugValues == true){
+            drawStart = System.nanoTime();
+          }
+
           // TITLE STATE
           if(gameState == titleState){
 
@@ -193,6 +203,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             tileM.draw(g2);  // Draw tiles based on camera
 
+            map.drawMiniMapScreen(g2);
             for(int i= 0 ; i < object.length;i++){
               if(object[i] != null){
                 object[i].draw(g2, this);
@@ -204,6 +215,36 @@ public class GamePanel extends JPanel implements Runnable{
             ui.draw(g2);     // Draw ui  
           }
 
+
+          // DEBUG
+          if(keyH.showDebugValues == true){
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+
+            g2.setFont(new Font("Arial", Font.PLAIN, 20));
+            g2.setColor(Color.WHITE);
+
+            int x = 10;
+            int y = 400;
+            int lineHeight = 20;
+
+            y += lineHeight;
+            g2.drawString("WorldX " + player.worldX,x,y);
+            
+            y += lineHeight;
+            g2.drawString("WorldY " + player.worldY,x,y);
+            
+            y += lineHeight;            
+            g2.drawString("Col " + (player.worldX + player.solidArea.x)/tileSize,x,y);
+            
+            y += lineHeight; 
+            g2.drawString("Row " + (player.worldY + player.solidArea.y)/tileSize,x,y);
+            
+            y += lineHeight;
+            g2.drawString("Draw Time : " + passed, 10, 400);
+            
+            System.out.println("Draw Time : " + passed);
+          }
 
           g2.dispose();
       }

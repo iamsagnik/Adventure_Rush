@@ -16,17 +16,17 @@ public class TileManager {
   
   GamePanel gp;
   public Tile[] tile;
-  public int mapTileNum[][];
+  public int mapTileNum[][][]; // first dimension is to store map no.
 
   public TileManager(GamePanel gp){
 
     this.gp = gp;
 
     tile = new Tile[50];
-    mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
+    mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
     getTileManager();
-    loadMap("/res/maps/layer01.txt");
+    loadMap("/res/maps/layer01.txt", 0);
   }
 
   public void getTileManager(){
@@ -85,7 +85,7 @@ public class TileManager {
   }
 
 
-  public void loadMap(String filePath){
+  public void loadMap(String filePath, int map){
 
     try {
 
@@ -105,7 +105,7 @@ public class TileManager {
 
           int num = Integer.parseInt(numbers[col]);
 
-          mapTileNum[col][row] = num;
+          mapTileNum[map][col][row] = num;
           col++;
         }
 
@@ -136,7 +136,7 @@ public class TileManager {
             // Only draw tiles that are within the visible screen area
             if (screenX + gp.tileSize > 0 && screenX < gp.screenWidth &&
                 screenY + gp.tileSize > 0 && screenY < gp.screenHeight) {
-                g2.drawImage(tile[mapTileNum[worldCol][worldRow]].image, screenX, screenY, null);
+                g2.drawImage(tile[mapTileNum[gp.currentMap][worldCol][worldRow]].image, screenX, screenY, null);
             }
         }
     }

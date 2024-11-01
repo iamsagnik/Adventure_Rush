@@ -7,6 +7,7 @@ public class KeyHandler implements KeyListener{
 
   GamePanel gp;
   public boolean upPressed, downPressed, leftPressed, rightPressed , jumpPressed;
+  boolean showDebugValues = false;
 
   public KeyHandler(GamePanel gp){
     this.gp = gp;
@@ -74,6 +75,31 @@ public class KeyHandler implements KeyListener{
       }
       System.out.println("pause button is pressed");
     }
+    if(code == KeyEvent.VK_R){
+
+      switch (gp.currentMap) {
+        case 0: gp.tileM.loadMap("/res/maps/layer01.txt",0); break;
+      }
+    
+    }
+    if(code == KeyEvent.VK_M){
+      if(gp.map.miniMapOn == false){
+        gp.map.miniMapOn = true;
+      }
+      else{
+        gp.map.miniMapOn = false;
+      }
+    }
+
+    // DEBUG
+    if(code == KeyEvent.VK_T){
+      if(showDebugValues == false){
+        showDebugValues = true;
+      }else{
+        showDebugValues = false;
+      }
+    }
+
   }
 
   @Override
