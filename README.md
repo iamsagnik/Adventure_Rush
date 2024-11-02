@@ -1,6 +1,6 @@
-# Adventure Rush
+# Questbound
 
-Adventure Rush is a 2D adventure game where players explore a dynamic world, avoiding obstacles, battling monsters, and progressing through challenging levels. This project is developed in Java using custom graphics and a camera system to handle smooth player movement and rendering.
+Questbound is a 2D adventure game where players explore a dynamic world, avoiding obstacles, battling monsters, and progressing through challenging levels. This project is developed in Java using custom graphics and a camera system to handle smooth player movement and rendering.
 
 ## Table of Contents
 
