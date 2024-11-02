@@ -78,13 +78,9 @@ public class TileManager {
         return;
       }
       tile[index].image = ImageIO.read(imageStream);
-
       tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
       tile[index].collision = collision;
 
-      if(index == 18){
-        tile[index].largeOverlay = true;
-      }
 
     } catch (IOException e) {
       e.printStackTrace();
