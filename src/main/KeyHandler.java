@@ -66,6 +66,9 @@ public class KeyHandler implements KeyListener{
       rightPressed = true;
       System.out.println("right key is pressed");
     }
+    if(code == KeyEvent.VK_SHIFT){
+      gp.player.speed = 6;
+    }
     if(code == KeyEvent.VK_P){
       if(gp.gameState == gp.playState){
         gp.gameState = gp.pauseState;
@@ -118,6 +121,9 @@ public class KeyHandler implements KeyListener{
     }
     if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
       rightPressed = false;
+    }
+    if(code == KeyEvent.VK_SHIFT){
+      gp.player.speed = 3;
     }   
 
   }
