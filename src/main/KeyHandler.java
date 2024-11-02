@@ -38,7 +38,7 @@ public class KeyHandler implements KeyListener{
       if(code == KeyEvent.VK_ENTER){
         if(gp.ui.commandNum == 0){
           gp.gameState = gp.playState;
-          gp.playMusic(0);
+          //gp.playMusic(0);
         }
         if(gp.ui.commandNum == 1){
             // add later
@@ -65,6 +65,9 @@ public class KeyHandler implements KeyListener{
     if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
       rightPressed = true;
       System.out.println("right key is pressed");
+    }
+    if(code == KeyEvent.VK_SHIFT){
+      gp.player.speed = 6;
     }
     if(code == KeyEvent.VK_P){
       if(gp.gameState == gp.playState){
@@ -118,6 +121,9 @@ public class KeyHandler implements KeyListener{
     }
     if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
       rightPressed = false;
+    }
+    if(code == KeyEvent.VK_SHIFT){
+      gp.player.speed = 3;
     }   
 
   }
